@@ -1,0 +1,13 @@
+<div>
+<h1>Save your favourite films</h1>
+</div>
+
+<div>
+<p><%= link_to "My lists", lists_path%></p>
+<p>new list link - not done</p>
+<br>
+<h2>My Lists</h2>
+<% @lists.each do |list| %>
+<li><%= link_to list.name, list %></li>
+<% end %>
+</div>

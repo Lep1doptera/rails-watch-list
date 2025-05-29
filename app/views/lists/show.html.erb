@@ -1,4 +1,14 @@
-<p><%= link_to "My lists", lists_path%></p>
-<h2><%= @lists.name%></h2>
+<p><%= link_to "Back to my lists", lists_path%></p>
+<h2><%= @list.name%></h2>
 
-<p>for each film</p>
+<%= link_to "Add movie (not done)", new_list_bookmark_path[:list_id]%>
+
+<div>
+  <% @list.bookmarks.each do |bookmark| %>
+    <%= image_tag bookmark.movie.poster_url, style: "width: 100px;" %>
+    <p><%= bookmark.movie.title %> | ⭐ <%= bookmark.movie.rating %> </p>
+    <p><%= bookmark.movie.overview %></p>
+    <p>"<%= bookmark.comment%>"</p>
+    <br>
+  <% end %>
+</div>

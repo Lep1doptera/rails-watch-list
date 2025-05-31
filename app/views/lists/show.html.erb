@@ -1,14 +1,45 @@
-<p><%= link_to "Back to my lists", lists_path%></p>
-<h2><%= @list.name%></h2>
+<!-- Banner using the List photo -->
+<% if @list.photo.attached? %>
+  <div class="banner mb-4" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url(<%= cl_image_path(@list.photo.key) %>); height: 300px; background-size: cover; background-position: center;">
+    <div class="container h-100 d-flex align-items-end pb-3">
+      <h1 class="text-white"><%= @list.name %></h1>
+    </div>
+  </div>
+<% else %>
+  <div class="banner mb-4" style="background-image: linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)), url('https://t4.ftcdn.net/jpg/11/25/25/87/360_F_1125258781_Ag4FppyHfgHb8JygEbLEEKmqFcCEjPwg.jpg'); height: 300px; background-size: cover; background-position: center;">
+    <div class="container h-100 d-flex align-items-end pb-3">
+      <h1 class="text-white"><%= @list.name %></h1>
+    </div>
+  </div>
+<% end %>
 
-<%= link_to "Add movie (not done)", new_list_bookmark_path[:list_id]%>
+<div class="container">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <p class="mb-0"><%= pluralize(@list.bookmarks.count, "film") %></p>
+    <%= link_to "Add movie", new_list_bookmark_path(@list), class: "btn btn-primary" %>
+  </div>
 
-<div>
-  <% @list.bookmarks.each do |bookmark| %>
-    <%= image_tag bookmark.movie.poster_url, style: "width: 100px;" %>
-    <p><%= bookmark.movie.title %> | ⭐ <%= bookmark.movie.rating %> </p>
-    <p><%= bookmark.movie.overview %></p>
-    <p>"<%= bookmark.comment%>"</p>
-    <br>
-  <% end %>
+  <div class="row row-cols-1 row-cols-md-2 g-4">
+    <% @list.bookmarks.each do |bookmark| %>
+      <div class="col">
+        <div class="card h-100">
+          <div class="row g-0">
+            <div class="col-md-4">
+              <%= image_tag bookmark.movie.poster_url, class: "img-fluid rounded-start", style: "height: 100%; object-fit: cover;" %>
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title"><%= bookmark.movie.title %> | ⭐ <%= bookmark.movie.rating %></h5>
+                <p class="card-text"><%= bookmark.movie.overview %></p>
+                <p class="card-text"><em>"<%= bookmark.comment %>"</em></p>
+                <%= link_to "Delete", bookmark_path(bookmark),
+                            data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+                            class: "btn btn-sm btn-danger" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>

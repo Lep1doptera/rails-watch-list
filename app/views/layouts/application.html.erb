@@ -11,6 +11,16 @@
   </head>
 
   <body>
+<nav class="navbar bg-dark border-body sticky-top" data-bs-theme="dark">
+  <div class="d-flex align-items-center gap-4">
+    <h4 class="text-light m-0 p-2">Popcorn Picks 🍿</h4>
+    <div class="d-flex gap-3 ">
+    <p><%= link_to "Create list", new_list_path%></p>
+    <p><%= link_to "My Lists", lists_path%></p>
+  </div>
+  </div>
+</nav>
+
     <%= yield %>
   </body>
 </html>

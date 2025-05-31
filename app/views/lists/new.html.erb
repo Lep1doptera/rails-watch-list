@@ -1,8 +1,13 @@
-<h1>New List</h1>
 
-<div>
-<%= simple_form_for(@list) do |f| %>
-  <%= f.input :name %>
-  <%= f.submit %> <%= link_to "Cancel", lists_path%>
-<% end %>
+<div class="container">
+  <div class="row justify-content-center m-3 ">
+    <div class="col-md-6 bg-light p-5 shadow-sm">
+      <h1>New List 🎥 </h1>
+      <%= simple_form_for(@list) do |f| %>
+        <%= f.input :name %>
+        <%= f.input :photo, as: :file%>
+        <%= f.submit class: "btn btn-outline-primary"%> <%= link_to "Cancel", lists_path, class: "btn btn-outline-danger"%>
+      <% end %>
+    </div>
+  </div>
 </div>
